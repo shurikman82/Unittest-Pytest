@@ -50,6 +50,6 @@ def all_news():
     all_news = []
     for index in range(settings.NEWS_COUNT_ON_HOME_PAGE + 1):
         news = News(title=f'Новость {index}', text='Просто текст.',
-                    date=today-timedelta(days=index))
+                    date=today - timedelta(days=index))
         all_news.append(news)
     return News.objects.bulk_create(all_news)

@@ -50,7 +50,7 @@ def test_availability_for_comment_edit_and_delete(
 
 @pytest.mark.parametrize(
     'name', ('news:edit', 'news:delete')
-    )
+)
 def test_redirect_for_anonymous_client(client, name, news):
     login_url = reverse('users:login')
     url = reverse(name, args=(news.id,))

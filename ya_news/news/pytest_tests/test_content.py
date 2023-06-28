@@ -36,8 +36,8 @@ def test_comments_order(client, author, news, comment):
     now = timezone.now()
     for index in range(2):
         comment = Comment.objects.create(
-                news=news, author=author, text=f'Tекст {index}',
-            )
+            news=news, author=author, text=f'Tекст {index}',
+        )
         comment.created = now + timedelta(days=index)
         comment.save()
         response = client.get(url)
