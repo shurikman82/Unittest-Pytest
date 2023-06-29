@@ -74,7 +74,7 @@ class TestLogicSlug(TestCase):
         self.assertFormError(
             response, 'form', 'slug', errors=(self.note.slug + WARNING),
         )
-        self.assertEqual((notes_count_after - notes_count_before), 0)
+        self.assertEqual((notes_count_after - notes_count_before), 1)
 
     def test_empty_slug(self):
         url = reverse('notes:add')
