@@ -1,10 +1,10 @@
 from http import HTTPStatus
 
+from pytils.translit import slugify
+
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
-
-from pytils.translit import slugify
 
 from notes.forms import WARNING
 from notes.models import Note
@@ -26,10 +26,11 @@ class TestNoteCreate(TestCase):
     def test_user_can_create_note(self):
         self.client.force_login(self.author)
         url = reverse('notes:add')
+        notes_count_before = Note.objects.count()
         response = self.client.post(url, data=self.form_data)
         self.assertRedirects(response, reverse('notes:success'))
-        notes_count = Note.objects.count()
-        self.assertEqual(notes_count, 1)
+        notes_count_after = Note.objects.count()
+        self.assertEqual((notes_count_after - notes_count_before), 1)
         new_note = Note.objects.get()
         self.assertEqual(new_note.title, self.form_data['title'])
         self.assertEqual(new_note.text, self.form_data['text'])

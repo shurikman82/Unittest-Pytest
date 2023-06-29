@@ -13,9 +13,10 @@ User = get_user_model()
 
 def test_anonymous_user_cant_create_comment(client, news, form_data):
     url = reverse('news:detail', args=(news.id,))
+    comment_count_befor = Comment.objects.count()
     client.post(url, data=form_data)
-    comments_count = Comment.objects.count()
-    assert comments_count == 0
+    comments_count_after = Comment.objects.count()
+    assert (comments_count_after - comment_count_befor) == 0
 
 
 def test_user_can_create_comment(admin_client, admin_user, form_data, news):
